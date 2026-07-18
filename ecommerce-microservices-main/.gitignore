@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+target/
+*.jar
+*.class
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.log

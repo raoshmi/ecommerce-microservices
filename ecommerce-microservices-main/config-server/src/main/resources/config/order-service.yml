@@ -1,0 +1,9 @@
+server:
+  port: 8084
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/order_db
+    username: postgres
+    password: "180904"
+    driver-class-name: org.postgresql.Driver

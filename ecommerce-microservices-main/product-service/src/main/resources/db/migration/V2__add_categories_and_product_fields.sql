@@ -1,0 +1,8 @@
+CREATE TABLE categories (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description VARCHAR(255)
+);
+
+ALTER TABLE products ADD COLUMN stock INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE products ADD COLUMN image_url VARCHAR(500);

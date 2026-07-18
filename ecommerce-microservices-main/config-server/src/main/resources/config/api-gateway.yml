@@ -1,0 +1,83 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods: GET, POST, PUT, DELETE, OPTIONS, PATCH
+            allowedHeaders: "*"
+            allowCredentials: true
+      routes:
+        # User Service — public auth routes
+        - id: user-service-auth
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - name: JwtAuthFilter
+              args:
+                secured: false
+
+        # User Service — protected user routes
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - JwtAuthFilter
+
+        # Product Service
+        - id: product-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/products/**
+          filters:
+            - JwtAuthFilter
+
+        # Category Service (hosted inside Product Service)
+        - id: category-service
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/categories/**
+          filters:
+            - JwtAuthFilter
+
+        # Cart Service
+        - id: cart-service
+          uri: lb://CART-SERVICE
+          predicates:
+            - Path=/api/cart/**
+          filters:
+            - JwtAuthFilter
+
+        # Inventory Service
+        - id: inventory-service
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - Path=/api/inventory/**
+          filters:
+            - JwtAuthFilter
+
+        # Order Service
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/orders/**
+          filters:
+            - JwtAuthFilter
+
+        # Payment Service
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/payments/**
+          filters:
+            - JwtAuthFilter
+
+jwt:
+  secret: "ecommerce_jwt_super_secret_key_2024_minimum_256_bits_long"
+  expiration: 86400000

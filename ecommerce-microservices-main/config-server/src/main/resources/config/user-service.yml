@@ -1,0 +1,14 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/user_db
+    username: postgres
+    password: "180904"
+    driver-class-name: org.postgresql.Driver
+
+jwt:
+  secret: "ecommerce_jwt_super_secret_key_2024_minimum_256_bits_long"
+  expiration: 86400000 # 24 hours (1 day)
+  refreshExpiration: 604800000 # 7 days

@@ -1,0 +1,53 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: unified-backend
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ecommerce_monolith_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:180904}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  sql:
+    init:
+      mode: always
+
+# JWT configuration
+jwt:
+  secret: ${JWT_SECRET:ecommerce_jwt_super_secret_key_2024_minimum_256_bits_long}
+  expiration: 86400000
+
+# Razorpay configuration (defaults for demo)
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID:YOUR_KEY_ID}
+  key-secret: ${RAZORPAY_KEY_SECRET:YOUR_KEY_SECRET}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+services:
+  product-service-url: ${SERVICES_PRODUCT_SERVICE_URL:http://localhost:8080}
+  cart-service-url: ${SERVICES_CART_SERVICE_URL:http://localhost:8080}
+  ai-service-url: ${SERVICES_AI_SERVICE_URL:https://ecommerce-ai-service-u6za.onrender.com}
+  ai-service:
+    url: ${SERVICES_AI_SERVICE_URL:https://ecommerce-ai-service-u6za.onrender.com}
+
+
